@@ -34,7 +34,6 @@ public class DataHolder {
         authors.add(new Author(2L, "William", "Shakespeare", UK));
         authors.add(new Author(3L, "Victor", "Hugo", France));
         authors.add(new Author(4L, "Haruki", "Murakami", Japan));
-
         books.add(new Book("Norwegian wood", 4, Category.NOVEL, authors.get(0)));
         books.add(new Book("Les Miserables", 9, Category.NOVEL, authors.get(3)));
         books.add(new Book("Hamlet", 10, Category.DRAMA, authors.get(2)));
