@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<th:block>
+
+    <div th:if="${hasError}">
+        <h5 class="text-center text-danger" th:text="${error}"></h5>
+    </div>
+
+    <!-- Pretstavuvanje na site knigi -->
+<!--    <div class="container mb-5">-->
+<!--        <div class="row">-->
+<!--            &lt;!&ndash; Uslov samo ako ima knigi &ndash;&gt;-->
+<!--            <div class="col-12" th:if="${books.size() > 0}">-->
+<!--                <div class="table table-responsive">-->
+<!--                    <table class="table table-striped">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">Book name</th>-->
+<!--                            <th scope="col">Available copies</th>-->
+<!--                            <th scope="col">Author</th>-->
+<!--                            <th scope="col">Category</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        &lt;!&ndash; Za sekoj produkt prikazi go slednoto &ndash;&gt;-->
+<!--                        <tr th:each="book : ${books}">-->
+<!--                            <td th:text="${book.getName()}"></td>-->
+<!--                            <td th:text="${book.getAvailableCopies()}"></td>-->
+<!--                            &lt;!&ndash; Proverka dali postoi kniga od avtor i kategorija&ndash;&gt;-->
+<!--                            <td th:text="${book.getAuthor() != null}-->
+<!--                            ? ${book.getAuthor().getName()} : 'No Author'"></td>-->
+<!--                            <td th:text="${book.getCategory() != null}-->
+<!--                            ? ${book.getCategory().getName()} : 'No Category'"></td>-->
+
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+<!--        </div>-->
+<!--    </div>-->
+
+</th:block>
+</body>
+</html>
