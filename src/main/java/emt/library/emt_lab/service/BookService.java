@@ -2,6 +2,7 @@ package emt.library.emt_lab.service;
 
 import emt.library.emt_lab.model.Author;
 import emt.library.emt_lab.model.Book;
+import emt.library.emt_lab.model.BookDto;
 import emt.library.emt_lab.model.Category;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +29,8 @@ public interface BookService {
     void deleteById(Long id);
 
     void rent();
+
+    Optional<Book> save(BookDto bookDto);
+
+    Optional<Book> edit(Long id, BookDto bookDto);
 }

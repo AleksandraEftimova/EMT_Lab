@@ -2,12 +2,16 @@ package emt.library.emt_lab.service.implementations;
 
 import emt.library.emt_lab.model.Author;
 import emt.library.emt_lab.model.Book;
+import emt.library.emt_lab.model.BookDto;
 import emt.library.emt_lab.model.Category;
+import emt.library.emt_lab.model.event.BookCreatedEvent;
 import emt.library.emt_lab.model.exceptions.AuthorNotFoundException;
 import emt.library.emt_lab.model.exceptions.BookNotFoundException;
 import emt.library.emt_lab.repository.AuthorRepository;
 import emt.library.emt_lab.repository.BookRepository;
 import emt.library.emt_lab.service.BookService;
+
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,10 +24,12 @@ public class BookServiceImpl implements BookService {
     //zavisnosti
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, ApplicationEventPublisher applicationEventPublisher) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -80,5 +86,38 @@ public class BookServiceImpl implements BookService {
     @Override
     public void rent() {
 
+    }
+
+    @Override
+    @Transactional
+    public Optional<Book> save(BookDto bookDto) {
+        Author author = this.authorRepository.findById(bookDto.getAuthorId())
+                .orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthorId()));
+
+        this.bookRepository.deleteByName(bookDto.getName());
+        Book book = new Book(bookDto.getName(), bookDto.getAvailableCopies(), author);
+        this.bookRepository.save(book);
+        //this.refreshMaterializedView();
+
+
+        this.applicationEventPublisher.publishEvent(new BookCreatedEvent(book));
+        return Optional.of(book);
+
+
+    }
+
+    @Override
+    public Optional<Book> edit(Long id, BookDto bookDto) {
+        Book book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+
+        book.setName(bookDto.getName());
+//        book.setCategory(bookDto.getCategoryId().compareTo(Category.values().));
+        book.setAvailableCopies(bookDto.getAvailableCopies());
+        Author author = this.authorRepository.findById(bookDto.getAuthorId()).orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthorId()));
+        book.setAuthor(author);
+
+        this.bookRepository.save(book);
+
+        return Optional.of(book);
     }
 }
