@@ -35,3 +35,5 @@ const LibraryService = {
         return axios.get(`/books/${id}`);
     }
 }
+export default class LibraryService {
+}

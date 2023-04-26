@@ -12,7 +12,8 @@ class App extends Component {
         super(props);
         this.state = {
             authors: [],
-            products: []
+            products: [],
+            categories: []
         }
     }
 
@@ -53,7 +54,7 @@ class App extends Component {
     fetchData = () => {
         this.loadAuthors();
         this.loadCategories();
-        this.loadProducts();
+        this.loadBooks();
     }
 
     loadAuthors = () => {
@@ -65,7 +66,7 @@ class App extends Component {
             });
     }
 
-    loadProducts = () => {
+    loadBooks = () => {
         LibraryService.fetchBooks()
             .then((data) => {
                 this.setState({
