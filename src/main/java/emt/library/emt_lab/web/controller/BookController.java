@@ -102,7 +102,7 @@ public class BookController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         this.bookService.deleteById(id);
-        if (this.bookService.findById(id).isEmpty())
+        if (!this.bookService.findById(id).isPresent())
             return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
 
